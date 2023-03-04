@@ -13,40 +13,40 @@ def load_data(url):
   return data
 
 
-# def load_summary_data(ticker):
-#     summary_url = f'https://finance.yahoo.com/quote/{ticker}?p={ticker}'
-#     summary_data = load_data(summary_url)
-#     data = [summary_data[0], summary_data[1]]
-#     data = pd.concat(summary_data)
-#     data.reset_index(drop=True, inplace=True)
-#     df = data.transpose()
-#     df.columns = df.iloc[0]
-#     df = df.drop(0)
-#     df = df.reset_index(drop=True)
-#     return df
+def load_summary_data(ticker):
+    summary_url = f'https://finance.yahoo.com/quote/{ticker}?p={ticker}'
+    summary_data = load_data(summary_url)
+    data = [summary_data[0], summary_data[1]]
+    data = pd.concat(summary_data)
+    data.reset_index(drop=True, inplace=True)
+    df = data.transpose()
+    df.columns = df.iloc[0]
+    df = df.drop(0)
+    df = df.reset_index(drop=True)
+    return df
 
-# def load_historical_data(ticker):
-#     historiscal_url= f'https://finance.yahoo.com/quote/{ticker}/history?p={ticker}'
-#     historiscal_data = load_data(historiscal_url)
-#     data = historiscal_data[0]
-#     data = data.iloc[:-1 , :]
-#     data = data[data["Open"].str.contains("Dividend") == False]
+def load_historical_data(ticker):
+    historiscal_url= f'https://finance.yahoo.com/quote/{ticker}/history?p={ticker}'
+    historiscal_data = load_data(historiscal_url)
+    data = historiscal_data[0]
+    data = data.iloc[:-1 , :]
+    data = data[data["Open"].str.contains("Dividend") == False]
     
-#     data['Date'] = pd.to_datetime(data['Date'])
-#     numeric_columns = list(data.columns)[1::]
-#     for column_name in numeric_columns:
-#         data[column_name] = data[column_name].str.replace(',', '')
-#         data[column_name] = data[column_name].astype(np.float64)
+    data['Date'] = pd.to_datetime(data['Date'])
+    numeric_columns = list(data.columns)[1::]
+    for column_name in numeric_columns:
+        data[column_name] = data[column_name].str.replace(',', '')
+        data[column_name] = data[column_name].astype(np.float64)
     
-#     data.set_index('Date',inplace=True)
-#     data = data.reindex(index=data.index[::-1])
-#     return data
+    data.set_index('Date',inplace=True)
+    data = data.reindex(index=data.index[::-1])
+    return data
     
     
-# #загрузим общую информацию
-# data_load_state = st.text('Загружаем базовую информацию...')
-# df = load_summary_data(ticker)
-# data_load_state.text('Информация... Загружена!')
+#загрузим общую информацию
+data_load_state = st.text('Загружаем базовую информацию...')
+df = load_summary_data(ticker)
+data_load_state.text('Информация... Загружена!')
 
 # st.subheader('Общая информация')
 # st.write(df)
