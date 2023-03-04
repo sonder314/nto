@@ -47,7 +47,7 @@ def load_historical_data(ticker):
 #загрузим общую информацию
 data_load_state = st.text('Загружаем базовую информацию...')
 # df = load_summary_data(ticker)
-st.title(load_data(f'https://finance.yahoo.com/quote/{ticker}?p={ticker}'))
+st.write(load_data(f'https://finance.yahoo.com/quote/{ticker}?p={ticker}'))
 data_load_state.text('Информация... Загружена!')
 
 # st.subheader('Общая информация')
