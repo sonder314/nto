@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import requests
+import lxml
 
 st.title('Анализ финансовых данных компании')
 
