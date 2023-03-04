@@ -1,3 +1,4 @@
+pip install lxml
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -43,31 +44,31 @@ def load_historical_data(ticker):
     return data
     
     
-#загрузим общую информацию
+загрузим общую информацию
 data_load_state = st.text('Загружаем базовую информацию...')
-# df = load_summary_data(ticker)
+df = load_summary_data(ticker)
 st.write(load_data(f'https://finance.yahoo.com/quote/{ticker}?p={ticker}'))
-# data_load_state.text('Информация... Загружена!')
+data_load_state.text('Информация... Загружена!')
 
-# st.subheader('Общая информация')
-# st.write(df)
+st.subheader('Общая информация')
+st.write(df)
 
-# history_load_state = st.text('Загружаем историческую информацию...')
-# history = load_historical_data(ticker)
-# history_load_state.text('Информация... Загружена!')
+history_load_state = st.text('Загружаем историческую информацию...')
+history = load_historical_data(ticker)
+history_load_state.text('Информация... Загружена!')
 
-# st.subheader('Историческая информация')
-# st.text('Изменение биржевых котировок:')
-# st.line_chart(history['Adj Close**'])
+st.subheader('Историческая информация')
+st.text('Изменение биржевых котировок:')
+st.line_chart(history['Adj Close**'])
 
-# st.text('Изменение объема торгов:')
-# st.line_chart(history['Volume'])
+st.text('Изменение объема торгов:')
+st.line_chart(history['Volume'])
 
-# ma_day = [10,20,30]
+ma_day = [10,20,30]
 
-# for ma in ma_day:
-#     column_name = "MA for %s days" %(str(ma))
-#     history[column_name] = history['Adj Close**'].rolling(window=ma,center=False).mean()
+for ma in ma_day:
+    column_name = "MA for %s days" %(str(ma))
+    history[column_name] = history['Adj Close**'].rolling(window=ma,center=False).mean()
     
-# st.text('Скользящие средние:')
-# st.line_chart(history[['Adj Close**','MA for 10 days','MA for 20 days','MA for 30 days']])
+st.text('Скользящие средние:')
+st.line_chart(history[['Adj Close**','MA for 10 days','MA for 20 days','MA for 30 days']])
