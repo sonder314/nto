@@ -8,10 +8,9 @@ st.title('Анализ финансовых данных компании')
 ticker = 'AAPL'
 
 def load_data(url):
-  r = requests.get(url, headers ={'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'})
+  r = requests.get(url,headers ={'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'})
   data = pd.read_html(r.text)
   return data
-
 
 def load_summary_data(ticker):
     summary_url = f'https://finance.yahoo.com/quote/{ticker}?p={ticker}'
@@ -43,14 +42,13 @@ def load_historical_data(ticker):
     return data
     
     
-загрузим общую информацию
+#загрузим общую информацию
 data_load_state = st.text('Загружаем базовую информацию...')
 df = load_summary_data(ticker)
-st.write(load_data(f'https://finance.yahoo.com/quote/{ticker}?p={ticker}'))
 data_load_state.text('Информация... Загружена!')
 
 st.subheader('Общая информация')
-st.write(df)
+st.write(pd.DataFrame(df.to_dict()))
 
 history_load_state = st.text('Загружаем историческую информацию...')
 history = load_historical_data(ticker)
